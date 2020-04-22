@@ -9,7 +9,29 @@ $ cd xj && go install
 
 ## Usage
 ```sh
-$ xj file.xml
+$ xj testdata/test.xml | jq
+{
+  "CATALOG": {
+    "CD": [
+      {
+        "PRICE": "10.90",
+        "YEAR": "1985",
+        "TITLE": "Empire Burlesque",
+        "ARTIST": "Bob Dylan",
+        "COUNTRY": "USA",
+        "COMPANY": "Columbia"
+      },
+      {
+        "PRICE": "9.90",
+        "YEAR": "1988",
+        "TITLE": "Hide your heart",
+        "ARTIST": "Bonnie Tyler",
+        "COUNTRY": "UK",
+        "COMPANY": "CBS Records"
+      }
+    ]
+  }
+}
 ```
 
 ## Author
