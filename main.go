@@ -24,8 +24,8 @@ func main() {
 
 	flag.Parse()
 
-	if flag.NFlag() > 1 {
-		flag.Usage()
+	if flag.NFlag() < 1 {
+		fmt.Println("Usage: xj file")
 		os.Exit(0)
 	}
 
