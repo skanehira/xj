@@ -3,23 +3,27 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"os"
 
 	xj "github.com/basgys/goxml2json"
 )
 
-func onExit(err error) {
-	log.Output(2, err.Error())
-	os.Exit(1)
-}
+func toJSON(xml io.Reader) string {
+	json, err := xj.Convert(xml)
+	if err != nil {
+		return err.Error()
+	}
 
-func init() {
-	log.SetFlags(log.LstdFlags | log.Lshortfile)
+	return json.String()
 }
 
 func main() {
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
+
 	flag.Parse()
+
 	if flag.NFlag() > 1 {
 		flag.Usage()
 		os.Exit(0)
@@ -27,14 +31,10 @@ func main() {
 
 	file, err := os.Open(flag.Args()[0])
 	if err != nil {
-		onExit(err)
+		log.Println(err)
+		os.Exit(1)
 	}
 	defer file.Close()
 
-	json, err := xj.Convert(file)
-	if err != nil {
-		onExit(err)
-	}
-
-	fmt.Println(json.String())
+	fmt.Println(toJSON(file))
 }
